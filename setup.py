@@ -22,6 +22,9 @@ setup(
     author=__authors__,
     zip_safe=True,
     url='https://bitbucket.org/octowire/' + name,
+    install_requires=[
+        'beautifultable>=0.8.0'
+    ],
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python :: 3',

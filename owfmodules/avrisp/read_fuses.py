@@ -6,7 +6,6 @@ from beautifultable import BeautifulTable, ALIGN_LEFT
 from octowire_framework.module.AModule import AModule
 from octowire.gpio import GPIO
 from octowire.spi import SPI
-from octowire.utils.Colors import Colors
 from owfmodules.avrisp.device_id import DeviceID
 
 
