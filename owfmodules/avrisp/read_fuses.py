@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# Octowire Framework
+# Copyright (c) ImmunIT - Jordan Ovrè / Paul Duncan
+# License: Apache 2.0
+# Paul Duncan / Eresse <pduncan@immunit.ch>
+# Jordan Ovrè / Ghecko <jovre@immunit.ch>
+
 import shutil
 import time
 
@@ -16,7 +24,7 @@ class ReadFuses(AModule):
             'name': 'AVR read fuses and lock bits',
             'version': '1.0.0',
             'description': 'Module to get the value of fuses and lock bits',
-            'author': 'Jordan Ovrè <ghecko78@gmail.com> / Paul Duncan <eresse@dooba.io>'
+            'author': 'Jordan Ovrè / Ghecko <jovre@immunit.ch>, Paul Duncan / Eresse <pduncan@immunit.ch>'
         })
         self.options = {
             "spi_bus": {"Value": "", "Required": True, "Type": "int",
