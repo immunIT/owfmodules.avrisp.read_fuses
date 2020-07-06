@@ -155,7 +155,7 @@ class ReadFuses(AModule):
 
             # Configure SPI with default phase and polarity
             spi_interface.configure(baudrate=spi_baudrate)
-            self.logger.handle("Enable Memory Access...", self.logger.INFO)
+            self.logger.handle("Enabling Memory Access...", self.logger.INFO)
 
             # Drive reset low
             reset.status = 0
