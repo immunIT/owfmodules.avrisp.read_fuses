@@ -23,16 +23,16 @@ class ReadFuses(AModule):
         self.meta.update({
             'name': 'AVR read fuses and lock bits',
             'version': '1.0.0',
-            'description': 'Module to get the value of fuses and lock bits',
+            'description': 'Read the fuses and lock bits of AVR microcontrollers',
             'author': 'Jordan Ovrè / Ghecko <jovre@immunit.ch>, Paul Duncan / Eresse <pduncan@immunit.ch>'
         })
         self.options = {
             "spi_bus": {"Value": "", "Required": True, "Type": "int",
-                        "Description": "The octowire SPI bus (0=SPI0 or 1=SPI1)", "Default": 0},
+                        "Description": "SPI bus (0=SPI0 or 1=SPI1)", "Default": 0},
             "reset_line": {"Value": "", "Required": True, "Type": "int",
-                           "Description": "The octowire GPIO used as the Reset line", "Default": 0},
+                           "Description": "GPIO used as the Reset line", "Default": 0},
             "spi_baudrate": {"Value": "", "Required": True, "Type": "int",
-                             "Description": "set SPI baudrate (1000000 = 1MHz) maximum = 50MHz", "Default": 1000000},
+                             "Description": "SPI frequency (1000000 = 1MHz) maximum = 50MHz", "Default": 1000000},
         }
         self.dependencies.append("owfmodules.avrisp.device_id>=1.0.0")
 
@@ -92,7 +92,7 @@ class ReadFuses(AModule):
                                              "value": descr["value"], "mask": fuse_dict[fuse_name]["mask"]}
                         break
                 else:
-                    self.logger.handle("Invalid value for {} ==> found value: {}".format(
+                    self.logger.handle("Invalid value for {} ==> got: {}".format(
                         fuse_name, hex(result >> trailing_zero)), self.logger.ERROR)
             else:
                 if result & mask == mask:
@@ -148,18 +148,18 @@ class ReadFuses(AModule):
         if device is not None:
             spi_interface = SPI(serial_instance=self.owf_serial, bus_id=spi_bus)
             reset = GPIO(serial_instance=self.owf_serial, gpio_pin=reset_line)
-
             reset.direction = GPIO.OUTPUT
 
-            # Active Reset is low
+            # Reset is active-low
             reset.status = 1
 
             # Configure SPI with default phase and polarity
             spi_interface.configure(baudrate=spi_baudrate)
-
             self.logger.handle("Enable Memory Access...", self.logger.INFO)
+
             # Drive reset low
             reset.status = 0
+
             # Enable Memory Access
             spi_interface.transmit(enable_mem_access_cmd)
             time.sleep(0.5)
@@ -176,11 +176,11 @@ class ReadFuses(AModule):
     def run(self):
         """
         Main function.
-        get fuses and lock bits value.
+        Get fuses and lock bits.
         :return: Nothing.
         """
-        # If detect_octowire is True then Detect and connect to the Octowire hardware. Else, connect to the Octowire
-        # using the parameters that were configured. It sets the self.owf_serial variable if the hardware is found.
+        # If detect_octowire is True then detect and connect to the Octowire hardware. Else, connect to the Octowire
+        # using the parameters that were configured. This sets the self.owf_serial variable if the hardware is found.
         self.connect()
         if not self.owf_serial:
             return

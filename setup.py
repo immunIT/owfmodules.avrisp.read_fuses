@@ -10,7 +10,7 @@ __license__ = "Apache 2.0"
 __version__ = "1.0.0"
 __contact__ = "Jordan Ovrè / Ghecko <jovre@immunit.ch>, Paul Duncan / Eresse <pduncan@immunit.ch>"
 
-description = 'Module to get the value of fuses and lock bits of an AVR MCU'
+description = 'Read the fuses and lock bits of AVR microcontrollers'
 name = 'owfmodules.avrisp.read_fuses'
 
 setup(
